@@ -15,7 +15,4 @@ cp /etc/ntp.conf /etc/ntpdefault
 /etc/init.d/ntp restart 1> /dev/null
 
 path=$(dirname "$(readlink -f "$0")")
-echo $path
-#entry="* * * * * $path/ntp_verify.sh"
-#cat < (crontab -l) | grep -v "${entry}" < (echo "${entry}")
 crontab -l | { cat; echo "* * * * * $path/ntp_verify.sh"; } | crontab -
